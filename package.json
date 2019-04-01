@@ -1,0 +1,22 @@
+{
+  "name": "hans",
+  "version": "1.0.0",
+  "description": "Hearst Analytics Network Slackbot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "hot": "nodemon index.js"
+  },
+  "author": "Mike Solomon",
+  "engines": {
+    "node": "8.9.1"
+  },
+  "dependencies": {
+    "botkit": "^0.7.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
