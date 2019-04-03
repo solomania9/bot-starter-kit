@@ -134,6 +134,9 @@ controller.on('direct_message', function(bot, message) {
 // Here's how you can create endpoints for slash commands and other stuff
 // For example, this will say hello when you visit: http://localhost:5432/say-hello
 app.get('/say-hello', function(req, res){
+    
+    // Do as much asyncronous stuff here as you like before sending the response below!
+
     res.send(`hello`);
 })
 
