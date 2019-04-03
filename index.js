@@ -123,7 +123,7 @@ Hello! Here's the good stuff, annotated below
 
 // Here's where you can write logic to handle 1:1 conversations
 controller.on('direct_message', function(bot, message) {
-    
+
     // Basic response
     if (message.text == "hi"){
         bot.reply(message,'hi yourself!');    
@@ -145,23 +145,46 @@ app.post('/sc',function(req,res) {
     res.setHeader('Content-Type', 'application/json');
     res.status(200).send(`{ "response_type": "in_channel", "text": ""}`);
 
+    // Here's where you'll write code to process the input and send a post request to the "response_url"
+    // Slash command docs - they're great! https://api.slack.com/slash-commands
+    // NOTE: This code example gets you as far as step 2 above. Continue with step 3...
+
+    // As an example, here are all the params that come with a slash command
+    /*
+    channel_id: "D2HJRHX3L"
+    channel_name: "directmessage"
+    command: "/atom-test"
+    response_url: "https://hooks.slack.com/commands/T1F4HPQPQ/596273043776/eeWF73gVVGwc4GVKvqf1eVn1"
+    team_domain: "hearstmedia"
+    team_id: "T1F4HPQPQ"
+    text: "helllllloooooo"
+    token: "YmoSuwS2fPY8pUY9lW9KQIbs"
+    trigger_id: "599759526983.49153806806.7e85efcf9a5b9aa1a6a2c3c313607d2a"
+    user_id: "U2HJEADT7"
+    user_name: "solomania"
+    */
 
 });
 
 // Example post request endpoint
-// For doing stuff like this: https://890e99e5.ngrok.io/webchat?brand=esq&message=hello+there
+// For doing stuff like this: http://localhost:5432/webchat?brand=esq&message=hello+there
 app.get('/webchat',function(req,res) {
     
     // Sample code to send the "message" parameter to a slack room
     let url = `https://slack.com/api/chat.postMessage?token=${process.env.SLACK_BOT_TOKEN}&channel=hans-test-channel&pretty=1`
     url += `&text=${encodeURIComponent(req.query.message)}`;
 
+    // Send a post request
+    // You'll use this code structure a lot if you're passing data to other endpoints!
     request.post({
         headers: {'Content-type' : 'application/json'},
         url
     }, (error, response, body) => {
-        //if (error) console.log(`Error in posting to channel: ${channelName} --> ${error}`);
-        res.send("Message probably sent to slack channel");
+        if (error) { 
+            console.log(`Error in posting to channel: ${channelName} --> ${error}`);
+        } else {
+            res.send("Message sent to slack channel");    
+        }
     });
 
 });
